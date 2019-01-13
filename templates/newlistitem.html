@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	</head>
+
+	<body>
+	<div class="login">
+		<a href="{{url_for('showCategories')}}">
+			<span aria-hidden="true"></span>Show All Categories
+		</a>
+		{%if 'username' not in session %}
+			<a href="{{url_for('showLogin')}}">Click Here to Login </a>
+		{% else %}
+			<a href="{{url_for('gdisconnect')}}">Logout </a>
+		{% endif %}
+	</div>
+		<h1>New Category Item</h1>
+		<form action="#" method = "post">
+			<div class="form-group">
+				<label for="name">Name:</label>
+				<input type ="text" maxlength="50" class="form-control" name="name" placeholder="Name of the item" required>
+
+				<label for="description">Description:</label>
+				<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the item" required></textarea>
+				<button type="submit" id="submit" type="submit">
+				<span></span>Create</button>
+			</div>
+		</form>
+	</body>
+</html>

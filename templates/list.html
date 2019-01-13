@@ -1,0 +1,57 @@
+<html>
+<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	</head>
+
+<body>
+
+<h1>{{ category.name }}</h1>
+<div class="login">
+	<a href="{{url_for('showCategories')}}">
+		<span aria-hidden="true"></span>Show All Categories
+	</a>
+	{%if 'username' not in session %}
+		<a href="{{url_for('showLogin')}}">Click Here to Login </a>
+	{% else %}
+		<a href="{{url_for('gdisconnect')}}">Logout </a>
+	{% endif %}
+</div>
+
+<div class = 'flash'>
+		      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+	<a href="{{url_for('editCategory', category_id = category.id )}}">
+			<button ><span></span>Edit Category</button>
+	</a>
+	<a href="{{url_for('newListItem', category_id = category.id )}}">
+		<button>
+			<span></span>Add Item
+		</button>
+	</a>
+	<a href="{{url_for('deleteCategory', category_id = category.id )}}">
+		<button>
+			<span></span>Delete Category
+		</button>
+	</a>
+{% if items !=[] %}	
+		{% for i in items %}
+			<div>
+				<h3>{{i.name}}</h3>
+				<p>{{i.description}}</p>
+				<a href='{{url_for('editListItem', category_id = category.id, list_id=i.id ) }}'>Edit</a> | 
+				<a href='{{url_for('deleteListItem', category_id = category.id, list_id=i.id ) }}'>Delete</a>
+			</div>
+		{% endfor %}			
+{% endif %}
+</body>
+</html>

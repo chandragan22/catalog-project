@@ -1,0 +1,44 @@
+<html>
+<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	</head>
+<body>
+<div class="login">
+		<a href="{{url_for('showCategories')}}">
+			<span aria-hidden="true"></span>Show All Categories
+		</a>
+		{%if 'username' not in session %}
+			<a href="{{url_for('showLogin')}}">Click Here to Login </a>
+		{% else %}
+			<a href="{{url_for('gdisconnect')}}">Logout </a>
+		{% endif %}
+	</div>
+<div class = 'flash'>
+		      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+       
+        {% for message in messages %}
+            <strong> {{ message }} </strong> 
+        {% endfor %}
+
+        {% endif %}
+    {% endwith %}
+
+</div>
+	
+<div class="lists">
+		<a href="{{url_for('newCategory')}}">
+			<button id="new-category">
+				<span ></span>Add Category
+			</button>
+		{% for category in categories %}
+			<a href = "{{url_for('showList', category_id = category.id)}}">
+				<h3>{{category.name}}</h3>
+			</a>
+		{% endfor %}
+</div>
+
+</body>
+</html>
